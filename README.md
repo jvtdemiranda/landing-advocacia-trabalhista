@@ -2,7 +2,7 @@
 
 > **Resumo para quem não é da área de T.I.:** este é um site institucional para um escritório de advocacia (fictício, feito como peça de portfólio). Diferente das outras páginas deste portfólio, o objetivo aqui **não é vender** — é informar. A advocacia no Brasil segue regras específicas da OAB sobre o que pode e não pode aparecer em publicidade, e a página inteira foi desenhada em volta dessas regras: sem preço, sem "consulta gratuita" como isca, sem depoimento de cliente, sem promessa de resultado. No lugar disso, uma calculadora educativa de verbas rescisórias, prazos legais explicados e uma seção que mostra, lado a lado, o que a página evita e por quê.
 
-**Publicado em:** https://landing-advocacia-trabalhista.vercel.app
+**Publicado em:** https://landing-advocacia-trabalhista-nine.vercel.app
 
 ## Screenshots
 
