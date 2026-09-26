@@ -38,7 +38,7 @@ Página estática, sem build step — só HTML, CSS e JavaScript puro.
 
 ## Funcionalidades
 
-- **Calculadora de verbas rescisórias** (`#calculadora`): estimativa educativa de aviso prévio, 13º e férias proporcionais e FGTS (+ multa de 40%, quando aplicável), com resultado e regras diferentes para demissão sem justa causa, pedido de demissão e justa causa.
+- **Calculadora de verbas rescisórias** (`#calculadora`): estimativa educativa de aviso prévio proporcional (Lei 12.506/2011: 30 dias + 3 por ano de casa, até 90), 13º e férias proporcionais com 1/3 e FGTS (+ multa de 40%), com regras diferentes para demissão sem justa causa, pedido de demissão (sem aviso indenizado e sem saque do FGTS) e justa causa.
 - **Acordeão de direitos e prazos** (`#direitos`): 4 perguntas reais sobre prescrição trabalhista, verbas de rescisão, assédio moral e acidente de trabalho, usando `<details>`/`<summary>` nativos do HTML (sem JavaScript).
 - **Formulário de contato** (`#contato`): monta uma mensagem institucional e abre o WhatsApp já com o texto preenchido — sem linguagem de urgência ou captação.
 - **Menu mobile** com fechamento automático ao clicar em um link.
@@ -51,7 +51,15 @@ Página estática, sem build step — só HTML, CSS e JavaScript puro.
 
 ## Bugs reais encontrados no processo
 
-Nenhum bug funcional foi encontrado nos testes desta vez — os três cenários da calculadora (demissão sem justa causa, pedido de demissão, justa causa) bateram exatamente com o cálculo manual esperado, e o formulário de contato gerou a mensagem de WhatsApp corretamente no primeiro teste. Isso não significa que o projeto não teve erros durante a escrita — significa que os erros foram pegos e corrigidos antes de eu considerar o código "pronto para testar", em vez de depois.
+Os testes da primeira versão passaram — mas só porque conferiam o código contra a **mesma** fórmula que eu tinha escrito, não contra a lei. Uma revisão geral depois de publicado, comparando com as regras trabalhistas de verdade, encontrou três erros de cálculo — os mais sérios do portfólio, porque num site de advogado um número jurídico errado é pior do que nenhum número:
+
+1. **Aviso prévio fixo em 1 salário.** Desde a Lei 12.506/2011, o aviso é de 30 dias + 3 dias por ano completo de casa, até 90 dias. Pra quem tinha 5 anos de empresa, a calculadora subestimava o aviso em 15 dias.
+2. **Pedido de demissão somando o FGTS.** Quem pede demissão não saca o FGTS (ele fica retido na conta), mas a calculadora incluía o saldo inteiro no total — com R$ 3.000 de salário e 25 meses de casa, eram R$ 6.000 de FGTS somados indevidamente.
+3. **13º proporcional calculado pelo tempo de casa, não pelo ano.** O 13º conta os meses trabalhados no ano civil; a calculadora usava "meses de casa que sobram depois de anos completos" — quem tinha exatamente 24 meses de empresa aparecia com R$ 0 de 13º. Agora usa os meses do ano até a saída (supondo saída no mês atual, o que o aviso da estimativa deixa explícito).
+
+A lição: teste que só confere o código contra ele mesmo não pega erro de regra de negócio. Os casos de teste agora têm valores calculados à mão a partir da lei (ex.: R$ 3.000, 25 meses, sem justa causa, saída em setembro → aviso de 36 dias, total R$ 14.583,33).
+
+A mesma revisão achou um problema de layout: dois botões não quebravam linha e criavam rolagem horizontal em telas de 320px e 360px (larguras comuns em celular Android) — os testes originais só cobriam 390px pra cima.
 
 ## Stack
 
